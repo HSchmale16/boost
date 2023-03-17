@@ -39,6 +39,10 @@ jobs:
           ref: boost-${{ env.BOOST_VERSION }}
           path: boost
           submodules: recursive
+      - name: Setup Emscripten
+        uses: lovasoa/setup-emscripten@master
+        with:
+          emscripten-version: '1.38.47'
       - name: Build Boost
         working-directory: boost
         run: |
