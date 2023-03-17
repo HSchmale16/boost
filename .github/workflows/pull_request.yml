@@ -27,6 +27,16 @@ jobs:
           - os: "ubuntu-22.04"
             std: "17"
     steps:
+      - name: Setup cache
+        id: cache-system-libraries
+        uses: actions/cache@v2
+        with:
+          path: ${{env.EM_CACHE_FOLDER}}
+          key: ${{env.EM_VERSION}}-${{ runner.os }}
+      - uses: mymindstorm/setup-emsdk@v11
+        with:
+          version: ${{env.EM_VERSION}}
+          actions-cache-folder: ${{env.EM_CACHE_FOLDER}}
       - id: config
         name: Generate Artefact name
         run: |
@@ -39,10 +49,7 @@ jobs:
           ref: boost-${{ env.BOOST_VERSION }}
           path: boost
           submodules: recursive
-      - name: Setup Emscripten
-        uses: lovasoa/setup-emscripten@master
-        with:
-          emscripten-version: '1.38.47'
+      
       - name: Build Boost
         working-directory: boost
         run: |
