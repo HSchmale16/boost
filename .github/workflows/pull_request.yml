@@ -27,12 +27,6 @@ jobs:
           - os: "ubuntu-22.04"
             std: "17"
     steps:
-      - name: Setup cache
-        id: cache-system-libraries
-        uses: actions/cache@v2
-        with:
-          path: ${{env.EM_CACHE_FOLDER}}
-          key: ${{env.EM_VERSION}}-${{ runner.os }}
       - uses: mymindstorm/setup-emsdk@v11
         with:
           version: ${{env.EM_VERSION}}
